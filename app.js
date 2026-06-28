@@ -28,6 +28,9 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
+const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+
+
 main()
 .then(() => {
   console.log("Connected to DB");
@@ -37,7 +40,7 @@ main()
 });
 
 const store = MongoStore.create({
-  mongoUrl: dbUrl,
+  mongoUrl:  MONGO_URL ,
   crypto:{
     secret: process.env.SECRET,
   },
@@ -64,7 +67,7 @@ const sessionOptions = {
 
 
 async function main() {
-  mongoose.connect(dbUrl);
+  mongoose.connect(MONGO_URL);
 }
 
 
