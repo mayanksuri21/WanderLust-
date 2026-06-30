@@ -153,7 +153,7 @@ http://localhost:8080
 ![LoginSignUp](./Screenshots-Wanderlust/LoginSignUp.png)
 
 * **Creat Listing**
-![CreateListing](./Screenshots-Wanderlust/CreateListing.png)
+Screenshots-Wanderlust/Create Listing.png
 
 * **All Listings**
 ![Listings](./Screenshots-Wanderlust/Listings.png)
