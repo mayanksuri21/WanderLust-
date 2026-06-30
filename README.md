@@ -146,28 +146,20 @@ http://localhost:8080
 
 # 📸 Screenshots
 
-> Add screenshots here after deployment.
+* **Home**
+![Home](./home.png)
 
-Example:
+* **Login / SignUp**
+![LoginSignup](./LoginSignup.png)
 
-- Home
-- 
-![Home](screenshots/home.png)
+* **All Listings**
+![All Listings](./AllListings.png)
 
-Login / SignUp
-![LoginSignup](screenshots/LoginSignUp.png)
+* **Map View**
+![Location Map](./Location.png)
 
-- ALL Listings
-![All Listings](screenshots/listings.png)
-
-- Map View
-- ![Location Map](screenshots/location.png)
-- 
-- ### Reviews
-![Reviews](screenshots/reviews.png)
-
-- Create Listing
-- ![Create Listing](screenshots/create-listing.png)
+* **Reviews**
+![Reviews](./Reviews.png)
 
 ---
 
