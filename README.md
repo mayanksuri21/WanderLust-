@@ -146,13 +146,14 @@ http://localhost:8080
 
 # 📸 Screenshots
 
-### 📸 Screenshots
-
 * **Home**
 ![home](./Screenshots-Wanderlust/home.png)
 
 * **Login / SignUp**
 ![LoginSignUp](./Screenshots-Wanderlust/LoginSignUp.png)
+
+* **Creat Listing**
+![CreateListing](./Screenshots-Wanderlust/CreateListing.png)
 
 * **All Listings**
 ![Listings](./Screenshots-Wanderlust/Listings.png)
