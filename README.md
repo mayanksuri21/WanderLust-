@@ -146,20 +146,22 @@ http://localhost:8080
 
 # 📸 Screenshots
 
+### 📸 Screenshots
+
 * **Home**
-![Home](./home.png)
+![home](./Screenshots-Wanderlust/home.png)
 
 * **Login / SignUp**
-![LoginSignup](./LoginSignUp.png)
+![LoginSignUp](./Screenshots-Wanderlust/LoginSignUp.png)
 
 * **All Listings**
-![All Listings](./Listings.png)
+![Listings](./Screenshots-Wanderlust/Listings.png)
 
 * **Map View**
-![Location Map](./Location.png)
+![Location](./Screenshots-Wanderlust/Location.png)
 
 * **Reviews**
-![Reviews](./Reviews.png)
+![Reviews](./Screenshots-Wanderlust/Reviews.png)
 
 ---
 
