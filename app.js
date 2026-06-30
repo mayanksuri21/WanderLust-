@@ -28,17 +28,19 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
 
 
 main()
 .then(() => {
-  console.log("Connected to DB");
+    console.log("Connected to DB");
 })
-.catch((err) => {
-  console.log(err);
-});
+.catch(err => console.log(err));
 
+async function main() {
+    await mongoose.connect(dbUrl);
+}
 const store = MongoStore.create({
   mongoUrl:  MONGO_URL ,
   crypto:{
