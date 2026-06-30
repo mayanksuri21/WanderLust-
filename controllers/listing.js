@@ -5,10 +5,27 @@ const mbxGeoCoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeoCoding({ accessToken: mapToken });
 
-const getGeometryFromListing = async (listingData) => {
-  const locationQuery = [listingData.location, listingData.country]
+const getLocationKey = (listingData) => {
+  return [listingData.location, listingData.country]
     .filter(Boolean)
-    .join(", ");
+    .map((value) => value.trim().toLowerCase())
+    .join("|");
+};
+
+const getLocationQuery = (listingData) => {
+  const location = listingData.location?.trim();
+  const country = listingData.country?.trim();
+
+  if (!location) return country || "";
+  if (!country) return location;
+
+  return location.toLowerCase().includes(country.toLowerCase())
+    ? location
+    : `${location}, ${country}`;
+};
+
+const getGeometryFromListing = async (listingData) => {
+  const locationQuery = getLocationQuery(listingData);
 
   if (!locationQuery) return null;
 
@@ -20,6 +37,22 @@ const getGeometryFromListing = async (listingData) => {
     .send();
 
   return response.body.features[0]?.geometry || null;
+};
+
+const syncListingGeometry = async (listing) => {
+  const currentLocationKey = getLocationKey(listing);
+  const needsGeometryRefresh =
+    !listing.geometry?.coordinates?.length ||
+    listing.mapLocationKey !== currentLocationKey;
+
+  if (!needsGeometryRefresh) return;
+
+  const geometry = await getGeometryFromListing(listing);
+  if (geometry) {
+    listing.geometry = geometry;
+    listing.mapLocationKey = currentLocationKey;
+    await listing.save();
+  }
 };
 
 module.exports.index = async (req, res) => {
@@ -40,13 +73,7 @@ module.exports.showListing = async (req, res) => {
     req.flash("error", "Listing you requested for does not exist");
     return res.redirect("/listings");
   }
-  if (!listing.geometry?.coordinates?.length) {
-    const geometry = await getGeometryFromListing(listing);
-    if (geometry) {
-      listing.geometry = geometry;
-      await listing.save();
-    }
-  }
+  await syncListingGeometry(listing);
   res.render("listings/show.ejs", { listing });
 };
 
@@ -65,6 +92,7 @@ module.exports.createListing = async (req, res, next) => {
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.geometry = geometry;
+  newListing.mapLocationKey = getLocationKey(req.body.listing);
   newListing.image = { url, filename };
   let savedListing = await newListing.save();
   console.log(savedListing);
@@ -90,6 +118,7 @@ module.exports.updateListing = async (req, res) => {
   const geometry = await getGeometryFromListing(req.body.listing);
   if (geometry) {
     listing.geometry = geometry;
+    listing.mapLocationKey = getLocationKey(req.body.listing);
   }
   if (typeof req.file !== "undefined") {
     let url = req.file.path;

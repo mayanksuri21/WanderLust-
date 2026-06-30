@@ -39,7 +39,8 @@ const listingSchema = new Schema({
       type: [Number],
       required: true
     }
-  }
+  },
+  mapLocationKey: String
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {
