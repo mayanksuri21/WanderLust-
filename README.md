@@ -150,10 +150,10 @@ http://localhost:8080
 ![Home](./home.png)
 
 * **Login / SignUp**
-![LoginSignup](./LoginSignup.png)
+![LoginSignup](./LoginSignUp.png)
 
 * **All Listings**
-![All Listings](./AllListings.png)
+![All Listings](./Listings.png)
 
 * **Map View**
 ![Location Map](./Location.png)
