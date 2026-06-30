@@ -41,11 +41,11 @@ async function main() {
     await mongoose.connect(dbUrl);
 }
 const store = MongoStore.create({
-  mongoUrl:  MONGO_URL ,
+  mongoUrl:  dbUrl ,
   crypto:{
     secret: process.env.SECRET,
   },
-  touchafter: 24*3600,
+  touchAfter: 24*3600,
 });
 
 store.on("error",(err)=>{
