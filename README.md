@@ -150,11 +150,24 @@ http://localhost:8080
 
 Example:
 
-- Home Page
-- Listing Details
-- Login Page
+- Home
+- 
+![Home](screenshots/home.png)
+
+Login / SignUp
+![LoginSignup](screenshots/LoginSignUp.png)
+
+- ALL Listings
+![All Listings](screenshots/listings.png)
+
 - Map View
+- ![Location Map](screenshots/location.png)
+- 
+- ### Reviews
+![Reviews](screenshots/reviews.png)
+
 - Create Listing
+- ![Create Listing](screenshots/create-listing.png)
 
 ---
 
