@@ -159,29 +159,28 @@ http://localhost:8080
 
 ---
 
-# 📸 Screenshots
+### 📸 Screenshots
 
-### 🏠 Home Page
+* **Home**
+![Home](./Screenshots-Wanderlust/home.png)
 
-![Home](screenshots/home.png)
+* **Login / SignUp**
+![LoginSignup](./Screenshots-Wanderlust/LoginSignUp.png)
 
-### 🏡 Create Listing
+* **Create Listing**
+![Create Listing](./Screenshots-Wanderlust/Create%20Listing.png)
 
-![Create Listing](screenshots/create-listing.png)
+* **All Listings**
+![All Listings](./Screenshots-Wanderlust/AllListings.png)
 
-### 📋 All Listings
+* **Map View**
+![Location Map](./Screenshots-Wanderlust/Location.png)
 
-![All Listings](screenshots/listings.png)
-
-### ⭐ Reviews
-
-![Reviews](screenshots/reviews.png)
-
-### 🗺️ Location Map
-
-![Location Map](screenshots/location.png)
-
+* **Reviews**
+![Reviews](./Screenshots-Wanderlust/Reviews.png)
 ---
+
+
 
 # 🏗 Application Architecture
 
