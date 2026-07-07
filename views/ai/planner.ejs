@@ -1,0 +1,264 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="planner-page">
+  <div class="planner-hero reveal-on-scroll">
+    <div class="planner-hero__copy">
+      <p class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> AI-Powered Travel Planning</p>
+      <h1>Create Your Perfect Trip</h1>
+      <p>Fill in your preferences below, and our AI will craft a custom day-by-day itinerary tailored to your budget, travel style, and interests.</p>
+    </div>
+    <div class="planner-hero__panel">
+      <div>
+        <span class="hero-stat"><i class="fa-solid fa-robot"></i></span>
+        <span class="hero-label">Powered by Google Gemini AI</span>
+      </div>
+      <div>
+        <span class="hero-stat">15+</span>
+        <span class="hero-label">itinerary sections</span>
+      </div>
+      <div>
+        <span class="hero-stat"><i class="fa-solid fa-file-pdf"></i></span>
+        <span class="hero-label">PDF export included</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="planner-form-wrap reveal-on-scroll">
+    <div class="form-card">
+      <form action="/planner" method="POST" id="plannerForm" class="needs-validation" novalidate>
+
+        <!-- Section 1: Destination & Dates -->
+        <div class="form-section">
+          <h3 class="form-section-title">
+            <span class="section-num">1</span>
+            Destination & Dates
+          </h3>
+
+          <div class="row g-3">
+            <div class="col-md-12">
+              <label for="destination" class="form-label">Where are you going?</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+                <input type="text" class="form-control" id="destination" name="destination" placeholder="e.g. Kyoto, Japan" required>
+                <div class="invalid-feedback">Please specify a destination.</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="startDate" class="form-label">Start Date</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-regular fa-calendar"></i></span>
+                <input type="date" class="form-control" id="startDate" name="startDate" required>
+                <div class="invalid-feedback">Please choose a start date.</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="duration" class="form-label">Duration (Days)</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-regular fa-clock"></i></span>
+                <input type="number" class="form-control" id="duration" name="duration" min="1" max="14" placeholder="e.g. 5" required>
+                <div class="invalid-feedback">Please specify duration (1-14 days).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Budget & Travelers -->
+        <div class="form-section">
+          <h3 class="form-section-title">
+            <span class="section-num">2</span>
+            Budget & Group
+          </h3>
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="budget" class="form-label">Budget Tier</label>
+              <select class="form-select" id="budget" name="budget" required>
+                <option value="" disabled selected>Select tier...</option>
+                <option value="Budget">Budget / Backpacker</option>
+                <option value="Moderate">Moderate / Mid-range</option>
+                <option value="Luxury">Luxury / Premium</option>
+              </select>
+              <div class="invalid-feedback">Please select a budget tier.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="travelers" class="form-label">Travelers</label>
+              <select class="form-select" id="travelers" name="travelers" required>
+                <option value="" disabled selected>Select size...</option>
+                <option value="1">Solo (1 Traveler)</option>
+                <option value="2">Couple (2 Travelers)</option>
+                <option value="3-5">Family / Small Group (3-5)</option>
+                <option value="6+">Large Group (6+)</option>
+              </select>
+              <div class="invalid-feedback">Please select number of travelers.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="travelStyle" class="form-label">Travel Style</label>
+              <select class="form-select" id="travelStyle" name="travelStyle" required>
+                <option value="" disabled selected>Select style...</option>
+                <option value="Relaxed">Relaxed & Leisurely</option>
+                <option value="Balanced">Balanced & Standard</option>
+                <option value="Active">Active & Fast-paced</option>
+                <option value="Adventure">Adventure-focused</option>
+              </select>
+              <div class="invalid-feedback">Please choose a travel style.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Interests -->
+        <div class="form-section">
+          <h3 class="form-section-title">
+            <span class="section-num">3</span>
+            Interests & Activities
+          </h3>
+          <p class="muted-text small mb-3">Choose one or more interests to personalize your itinerary.</p>
+
+          <div class="chip-group">
+            <input type="checkbox" class="chip-checkbox" id="int-nature" name="interests" value="Nature">
+            <label class="chip-label" for="int-nature"><i class="fa-solid fa-tree"></i> Nature & Parks</label>
+
+            <input type="checkbox" class="chip-checkbox" id="int-history" name="interests" value="History">
+            <label class="chip-label" for="int-history"><i class="fa-solid fa-landmark"></i> History & Temples</label>
+
+            <input type="checkbox" class="chip-checkbox" id="int-food" name="interests" value="Food">
+            <label class="chip-label" for="int-food"><i class="fa-solid fa-utensils"></i> Local Cuisine</label>
+
+            <input type="checkbox" class="chip-checkbox" id="int-shopping" name="interests" value="Shopping">
+            <label class="chip-label" for="int-shopping"><i class="fa-solid fa-bag-shopping"></i> Shopping</label>
+
+            <input type="checkbox" class="chip-checkbox" id="int-adventure" name="interests" value="Adventure">
+            <label class="chip-label" for="int-adventure"><i class="fa-solid fa-compass"></i> Adventure</label>
+
+            <input type="checkbox" class="chip-checkbox" id="int-art" name="interests" value="Art">
+            <label class="chip-label" for="int-art"><i class="fa-solid fa-palette"></i> Art & Museums</label>
+
+            <input type="checkbox" class="chip-checkbox" id="int-nightlife" name="interests" value="Nightlife">
+            <label class="chip-label" for="int-nightlife"><i class="fa-solid fa-moon"></i> Nightlife</label>
+
+            <input type="checkbox" class="chip-checkbox" id="int-wellness" name="interests" value="Wellness">
+            <label class="chip-label" for="int-wellness"><i class="fa-solid fa-spa"></i> Relax & Wellness</label>
+          </div>
+        </div>
+
+        <!-- Section 4: Preferences -->
+        <div class="form-section">
+          <h3 class="form-section-title">
+            <span class="section-num">4</span>
+            Preferences
+          </h3>
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="accommodation" class="form-label">Accommodation</label>
+              <select class="form-select" id="accommodation" name="accommodation" required>
+                <option value="" disabled selected>Select type...</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Hostel">Hostel / Guesthouse</option>
+                <option value="Resort">Resort / Luxury Stay</option>
+                <option value="Apartment">Apartment / Airbnb</option>
+                <option value="No Preference">No Preference</option>
+              </select>
+              <div class="invalid-feedback">Please choose accommodation preference.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="transportation" class="form-label">Transit</label>
+              <select class="form-select" id="transportation" name="transportation" required>
+                <option value="" disabled selected>Select transit...</option>
+                <option value="Public">Public Transit</option>
+                <option value="Rental">Rental Car</option>
+                <option value="Walking">Walking Only</option>
+                <option value="Taxi">Taxi / Rideshare</option>
+              </select>
+              <div class="invalid-feedback">Please select transportation preference.</div>
+            </div>
+            <div class="col-md-4">
+              <label for="food" class="form-label">Dietary Style</label>
+              <select class="form-select" id="food" name="food" required>
+                <option value="" disabled selected>Select diet...</option>
+                <option value="All">No Dietary Limits</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Halal">Halal</option>
+                <option value="GlutenFree">Gluten-Free</option>
+              </select>
+              <div class="invalid-feedback">Please choose dietary style.</div>
+            </div>
+            <div class="col-md-12">
+              <label for="specialRequests" class="form-label">Special Requests (Optional)</label>
+              <textarea class="form-control" id="specialRequests" name="specialRequests" rows="3" placeholder="e.g. Accessibility needs, traveling with kids..." maxlength="500"></textarea>
+              <div class="form-text text-end"><span id="charCount">0</span>/500</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="planner-submit">
+          <button type="submit" id="submitBtn" class="btn btn-primary app-btn btn-lg planner-submit-btn">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Itinerary
+          </button>
+          <div id="loadingState" class="planner-loading d-none">
+            <button type="button" disabled class="btn btn-primary app-btn btn-lg planner-submit-btn">
+              <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+              <span id="loadingMessage" role="status">Preparing your itinerary...</span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Character counter for special requests
+  const specialReq = document.getElementById("specialRequests");
+  const charCount = document.getElementById("charCount");
+  specialReq.addEventListener("input", () => {
+    charCount.textContent = specialReq.value.length;
+  });
+
+  // Loading messages to cycle
+  const loadingMessages = [
+    "Preparing your itinerary...",
+    "Finding hidden gems...",
+    "Calculating budget...",
+    "Planning routes...",
+    "Checking weather...",
+    "Curating restaurants...",
+    "Almost done..."
+  ];
+
+  // Bootstrap validation + loading state
+  (function () {
+    "use strict";
+    const forms = document.querySelectorAll(".needs-validation");
+    Array.from(forms).forEach(function (form) {
+      form.addEventListener("submit", function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        } else {
+          event.preventDefault();
+          document.getElementById("submitBtn").classList.add("d-none");
+          document.getElementById("loadingState").classList.remove("d-none");
+
+          let messageIndex = 0;
+          const messageInterval = setInterval(() => {
+            document.getElementById("loadingMessage").textContent =
+              loadingMessages[messageIndex % loadingMessages.length];
+            messageIndex++;
+          }, 1500);
+
+          // Submit form after showing loading
+          setTimeout(() => form.submit(), 100);
+        }
+        form.classList.add("was-validated");
+      }, false);
+    });
+  })();
+
+  // Set min date to today
+  const startDateInput = document.getElementById("startDate");
+  const today = new Date().toISOString().split("T")[0];
+  startDateInput.setAttribute("min", today);
+</script>

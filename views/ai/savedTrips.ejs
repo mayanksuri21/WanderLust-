@@ -1,0 +1,101 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="trips-page">
+  <!-- Header -->
+  <div class="trips-header reveal-on-scroll">
+    <div>
+      <p class="eyebrow"><i class="fa-solid fa-suitcase-rolling"></i> Your Travel Plans</p>
+      <h1>My Trips</h1>
+      <p class="muted-text">All your AI-generated itineraries in one place.</p>
+    </div>
+    <a href="/planner" class="btn btn-primary app-btn">
+      <i class="fa-solid fa-plus"></i> Plan New Trip
+    </a>
+  </div>
+
+  <% if (trips.length > 0) { %>
+    <!-- Search & Sort Bar -->
+    <div class="trips-toolbar reveal-on-scroll">
+      <form method="GET" action="/planner/my-trips" class="trips-search-form">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" class="form-control" name="q" placeholder="Search by destination..." value="<%= query %>">
+          <button type="submit" class="btn btn-dark">Search</button>
+        </div>
+      </form>
+      <div class="trips-sort">
+        <label for="sortSelect" class="form-label mb-0 me-2 fw-bold">Sort:</label>
+        <select id="sortSelect" class="form-select form-select-sm" style="width: auto;"
+          onchange="updateSort(this.value)">
+          <option value="newest" <%= currentSort === 'newest' ? 'selected' : '' %>>Newest First</option>
+          <option value="oldest" <%= currentSort === 'oldest' ? 'selected' : '' %>>Oldest First</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Trip Cards Grid -->
+    <div class="trips-grid">
+      <% trips.forEach(trip => { %>
+        <article class="trip-card reveal-on-scroll">
+          <div class="trip-card__header">
+            <div>
+              <h3 class="trip-card__dest"><%= trip.destination %></h3>
+              <p class="trip-card__dates muted-text">
+                <i class="fa-regular fa-calendar me-1"></i>
+                <%= trip.startDate %> &mdash; <%= trip.endDate || 'N/A' %>
+              </p>
+            </div>
+            <span class="ai-badge ai-badge--brand"><%= trip.budget %></span>
+          </div>
+
+          <div class="trip-card__meta">
+            <span><i class="fa-regular fa-clock me-1"></i><%= trip.duration %> days</span>
+            <span><i class="fa-solid fa-users me-1"></i><%= trip.travelers %></span>
+            <span><i class="fa-solid fa-person-walking me-1"></i><%= trip.travelStyle %></span>
+          </div>
+
+          <div class="trip-card__actions">
+            <a href="/planner/my-trips/<%= trip._id %>" class="btn btn-primary app-btn btn-sm">
+              <i class="fa-solid fa-eye"></i> View
+            </a>
+            <a href="/planner/my-trips/<%= trip._id %>/download" class="btn btn-outline-dark app-btn btn-sm">
+              <i class="fa-solid fa-download"></i> PDF
+            </a>
+            <form method="POST" action="/planner/my-trips/<%= trip._id %>?_method=DELETE"
+              onsubmit="return confirm('Are you sure you want to delete this trip?');">
+              <button type="submit" class="btn btn-outline-danger app-btn btn-sm">
+                <i class="fa-regular fa-trash-can"></i> Delete
+              </button>
+            </form>
+          </div>
+
+          <div class="trip-card__footer muted-text">
+            <small><i class="fa-regular fa-clock me-1"></i>Saved <%= new Date(trip.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %></small>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <!-- Empty State -->
+    <div class="empty-state reveal-on-scroll" style="max-width: 500px; margin: 3rem auto;">
+      <i class="fa-solid fa-route"></i>
+      <h3><%= query ? 'No trips match your search' : 'No trips yet' %></h3>
+      <p><%= query ? 'Try a different search term.' : 'Start planning your next adventure with our AI itinerary generator.' %></p>
+      <% if (!query) { %>
+        <a href="/planner" class="btn btn-primary app-btn">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Plan Your First Trip
+        </a>
+      <% } else { %>
+        <a href="/planner/my-trips" class="btn btn-outline-dark app-btn">Clear Search</a>
+      <% } %>
+    </div>
+  <% } %>
+</section>
+
+<script>
+  function updateSort(value) {
+    const params = new URLSearchParams(window.location.search);
+    params.set("sort", value);
+    window.location.search = params.toString();
+  }
+</script>

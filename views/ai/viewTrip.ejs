@@ -1,0 +1,409 @@
+<% layout("layouts/boilerplate") %>
+
+<!-- Hero Banner -->
+<section class="ai-result-hero reveal-on-scroll">
+  <div class="ai-result-hero__content">
+    <p class="eyebrow"><i class="fa-solid fa-bookmark"></i> Saved Trip</p>
+    <h1><%= trip.destination %></h1>
+    <p class="hero-copy">
+      <i class="fa-regular fa-calendar"></i>
+      <%= trip.startDate %> &mdash; <%= trip.endDate || 'N/A' %>
+      &nbsp;&bull;&nbsp;
+      <%= trip.duration %> days
+    </p>
+    <div class="ai-hero-badges">
+      <span class="ai-badge ai-badge--brand"><i class="fa-solid fa-tag"></i> <%= trip.budget %></span>
+      <span class="ai-badge ai-badge--green"><i class="fa-solid fa-users"></i> <%= trip.travelers %></span>
+      <span class="ai-badge ai-badge--gold"><i class="fa-solid fa-person-walking"></i> <%= trip.travelStyle %></span>
+    </div>
+  </div>
+</section>
+
+<!-- Action Bar -->
+<section class="ai-action-bar reveal-on-scroll no-print">
+  <div class="ai-action-bar__inner">
+    <a href="/planner/my-trips/<%= trip._id %>/download" class="btn btn-dark app-btn">
+      <i class="fa-solid fa-download"></i> Download PDF
+    </a>
+    <a href="/planner/my-trips" class="btn btn-outline-dark app-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back to My Trips
+    </a>
+    <form method="POST" action="/planner/my-trips/<%= trip._id %>?_method=DELETE" class="d-inline"
+      onsubmit="return confirm('Are you sure you want to delete this trip?');">
+      <button type="submit" class="btn btn-outline-danger app-btn">
+        <i class="fa-regular fa-trash-can"></i> Delete Trip
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- Trip Overview -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-map-location-dot"></i>
+    <h2>Trip Overview</h2>
+  </div>
+  <div class="ai-card">
+    <p class="mb-0"><%= itinerary.tripSummary.overallDescription %></p>
+  </div>
+</section>
+
+<!-- Destination Overview -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-circle-info"></i>
+    <h2>Destination Overview</h2>
+  </div>
+  <div class="ai-card">
+    <p class="mb-0"><%= itinerary.destinationOverview.description %></p>
+  </div>
+</section>
+
+<!-- Weather Guide -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-cloud-sun"></i>
+    <h2>Weather Guide</h2>
+  </div>
+  <div class="ai-card">
+    <div class="ai-detail-row">
+      <span class="ai-detail-label">Typical Weather</span>
+      <span><%= itinerary.weatherGuide.typicalWeather %></span>
+    </div>
+    <div class="ai-detail-row">
+      <span class="ai-detail-label">Temperature Range</span>
+      <span><%= itinerary.weatherGuide.temperatureRange %></span>
+    </div>
+    <div class="ai-detail-row">
+      <span class="ai-detail-label">Precipitation</span>
+      <span><%= itinerary.weatherGuide.precipitation %></span>
+    </div>
+    <div class="ai-detail-row">
+      <span class="ai-detail-label">Advice</span>
+      <span><%= itinerary.weatherGuide.advice %></span>
+    </div>
+  </div>
+</section>
+
+<!-- Daily Itinerary (Accordion) -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-calendar-days"></i>
+    <h2>Day-by-Day Itinerary</h2>
+  </div>
+  <div class="accordion" id="itineraryAccordion">
+    <% itinerary.dailyPlan.forEach((day, index) => { %>
+      <div class="accordion-item ai-accordion-item mb-2">
+        <h2 class="accordion-header">
+          <button class="accordion-button <%= index === 0 ? '' : 'collapsed' %> ai-accordion-btn" type="button"
+            data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>"
+            aria-expanded="<%= index === 0 %>" aria-controls="collapse<%= index %>">
+            <i class="fa-regular fa-calendar-check me-2"></i> Day <%= day.day %>: <%= day.date %>
+          </button>
+        </h2>
+        <div id="collapse<%= index %>" class="accordion-collapse collapse <%= index === 0 ? 'show' : '' %>"
+          aria-labelledby="heading<%= index %>" data-bs-parent="#itineraryAccordion">
+          <div class="accordion-body">
+            <div class="ai-timeline-item">
+              <div class="ai-timeline-dot"><i class="fa-solid fa-sun"></i></div>
+              <div class="ai-timeline-content">
+                <h5>Morning</h5>
+                <p class="mb-1"><strong><%= day.morning.activity %></strong></p>
+                <small class="muted-text"><i class="fa-solid fa-location-dot me-1"></i><%= day.morning.location %></small>
+                <% if (day.morning.duration) { %>
+                  <small class="muted-text ms-3"><i class="fa-regular fa-clock me-1"></i><%= day.morning.duration %></small>
+                <% } %>
+              </div>
+            </div>
+            <div class="ai-timeline-item">
+              <div class="ai-timeline-dot"><i class="fa-solid fa-cloud-sun"></i></div>
+              <div class="ai-timeline-content">
+                <h5>Afternoon</h5>
+                <p class="mb-1"><strong><%= day.afternoon.activity %></strong></p>
+                <small class="muted-text"><i class="fa-solid fa-location-dot me-1"></i><%= day.afternoon.location %></small>
+                <% if (day.afternoon.duration) { %>
+                  <small class="muted-text ms-3"><i class="fa-regular fa-clock me-1"></i><%= day.afternoon.duration %></small>
+                <% } %>
+              </div>
+            </div>
+            <div class="ai-timeline-item">
+              <div class="ai-timeline-dot"><i class="fa-solid fa-moon"></i></div>
+              <div class="ai-timeline-content">
+                <h5>Evening</h5>
+                <p class="mb-1"><strong><%= day.evening.activity %></strong></p>
+                <small class="muted-text"><i class="fa-solid fa-location-dot me-1"></i><%= day.evening.location %></small>
+                <% if (day.evening.duration) { %>
+                  <small class="muted-text ms-3"><i class="fa-regular fa-clock me-1"></i><%= day.evening.duration %></small>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- Budget Breakdown -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-wallet"></i>
+    <h2>Budget Breakdown</h2>
+  </div>
+  <div class="ai-card">
+    <h4 class="ai-budget-total"><i class="fa-solid fa-circle-dollar-to-slot"></i> Total: <%= itinerary.budgetBreakdown.totalEstimate %></h4>
+    <div class="row g-3 mt-3">
+      <div class="col-md-4">
+        <div class="ai-budget-item"><i class="fa-solid fa-house muted-text"></i> <span>Accommodation: <strong><%= itinerary.budgetBreakdown.accommodation %></strong></span></div>
+      </div>
+      <div class="col-md-4">
+        <div class="ai-budget-item"><i class="fa-solid fa-utensils muted-text"></i> <span>Food: <strong><%= itinerary.budgetBreakdown.food %></strong></span></div>
+      </div>
+      <div class="col-md-4">
+        <div class="ai-budget-item"><i class="fa-solid fa-car muted-text"></i> <span>Transport: <strong><%= itinerary.budgetBreakdown.transportation %></strong></span></div>
+      </div>
+      <div class="col-md-4">
+        <div class="ai-budget-item"><i class="fa-solid fa-ticket muted-text"></i> <span>Activities: <strong><%= itinerary.budgetBreakdown.activities %></strong></span></div>
+      </div>
+      <div class="col-md-4">
+        <div class="ai-budget-item"><i class="fa-solid fa-ellipsis muted-text"></i> <span>Misc: <strong><%= itinerary.budgetBreakdown.miscellaneous %></strong></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Accommodation Suggestions -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-hotel"></i>
+    <h2>Accommodation Suggestions</h2>
+  </div>
+  <div class="row g-3">
+    <% itinerary.accommodationSuggestions.forEach(acc => { %>
+      <div class="col-md-6">
+        <div class="ai-card ai-card--compact h-100">
+          <h5><%= acc.name %></h5>
+          <p class="muted-text mb-1"><i class="fa-solid fa-location-dot me-1"></i><%= acc.location %></p>
+          <span class="ai-badge ai-badge--brand mb-2"><%= acc.priceRange %></span>
+          <p class="mb-0"><%= acc.description %></p>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- Transportation Plan -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-plane"></i>
+    <h2>Transportation Plan</h2>
+  </div>
+  <div class="ai-card">
+    <div class="ai-detail-row"><span class="ai-detail-label">Arrival</span><span><%= itinerary.transportationPlan.arrival %></span></div>
+    <div class="ai-detail-row"><span class="ai-detail-label">Getting Around</span><span><%= itinerary.transportationPlan.gettingAround %></span></div>
+    <div class="ai-detail-row"><span class="ai-detail-label">Departure</span><span><%= itinerary.transportationPlan.departure %></span></div>
+  </div>
+</section>
+
+<!-- Food Recommendations -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-utensils"></i>
+    <h2>Food Recommendations</h2>
+  </div>
+  <div class="ai-card mb-3">
+    <h5 class="mb-2"><i class="fa-solid fa-star" style="color: var(--gold)"></i> Must Try</h5>
+    <div class="ai-tag-list">
+      <% itinerary.foodRecommendations.mustTry.forEach(food => { %>
+        <span class="ai-badge ai-badge--gold"><%= food %></span>
+      <% }) %>
+    </div>
+  </div>
+  <div class="row g-3">
+    <% itinerary.foodRecommendations.restaurants.forEach(rest => { %>
+      <div class="col-md-6">
+        <div class="ai-card ai-card--compact h-100">
+          <h5><%= rest.name %></h5>
+          <p class="muted-text mb-1"><i class="fa-solid fa-location-dot me-1"></i><%= rest.location %></p>
+          <span class="ai-badge ai-badge--brand mb-2"><%= rest.priceRange %></span>
+          <p class="mb-0"><%= rest.description %></p>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- Packing Checklist -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-suitcase"></i>
+    <h2>Packing Checklist</h2>
+  </div>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="ai-card ai-card--compact h-100">
+        <h6><i class="fa-solid fa-shirt me-1"></i> Clothing</h6>
+        <ul class="ai-checklist">
+          <% itinerary.packingChecklist.clothing.forEach(item => { %>
+            <li><i class="fa-solid fa-circle-check"></i><%= item %></li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="ai-card ai-card--compact h-100">
+        <h6><i class="fa-solid fa-droplet me-1"></i> Toiletries</h6>
+        <ul class="ai-checklist">
+          <% itinerary.packingChecklist.toiletries.forEach(item => { %>
+            <li><i class="fa-solid fa-circle-check"></i><%= item %></li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="ai-card ai-card--compact h-100">
+        <h6><i class="fa-solid fa-mobile-screen me-1"></i> Electronics</h6>
+        <ul class="ai-checklist">
+          <% itinerary.packingChecklist.electronics.forEach(item => { %>
+            <li><i class="fa-solid fa-circle-check"></i><%= item %></li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="ai-card ai-card--compact h-100">
+        <h6><i class="fa-solid fa-file-lines me-1"></i> Documents & More</h6>
+        <ul class="ai-checklist">
+          <% itinerary.packingChecklist.documents.forEach(item => { %>
+            <li><i class="fa-solid fa-circle-check"></i><%= item %></li>
+          <% }) %>
+          <% itinerary.packingChecklist.miscellaneous.forEach(item => { %>
+            <li><i class="fa-solid fa-circle-check"></i><%= item %></li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Clothing Recommendations -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-shirt"></i>
+    <h2>Clothing Recommendations</h2>
+  </div>
+  <div class="ai-card">
+    <div class="ai-detail-row">
+      <span class="ai-detail-label">Daywear</span>
+      <span><%= itinerary.clothingRecommendations.daywear %></span>
+    </div>
+    <div class="ai-detail-row">
+      <span class="ai-detail-label">Eveningwear</span>
+      <span><%= itinerary.clothingRecommendations.eveningwear %></span>
+    </div>
+    <div class="ai-detail-row">
+      <span class="ai-detail-label">Footwear</span>
+      <span><%= itinerary.clothingRecommendations.footwear %></span>
+    </div>
+  </div>
+</section>
+
+<!-- Photo Spots -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-camera"></i>
+    <h2>Photo Spots</h2>
+  </div>
+  <div class="row g-3">
+    <% itinerary.photoSpots.forEach(spot => { %>
+      <div class="col-md-6">
+        <div class="ai-card ai-card--compact h-100">
+          <h5><%= spot.name %></h5>
+          <p class="muted-text mb-1"><i class="fa-solid fa-location-dot me-1"></i><%= spot.location %></p>
+          <% if (spot.bestTime) { %>
+            <p class="muted-text mb-1"><i class="fa-regular fa-clock me-1"></i>Best Time: <%= spot.bestTime %></p>
+          <% } %>
+          <p class="mb-0"><%= spot.description %></p>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- Hidden Gems -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-gem"></i>
+    <h2>Hidden Gems</h2>
+  </div>
+  <div class="row g-3">
+    <% itinerary.hiddenGems.forEach(gem => { %>
+      <div class="col-md-6">
+        <div class="ai-card ai-card--compact h-100">
+          <h5><%= gem.name %></h5>
+          <p class="muted-text mb-1"><i class="fa-solid fa-location-dot me-1"></i><%= gem.location %></p>
+          <p class="mb-0"><%= gem.description %></p>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- Travel Tips -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-lightbulb"></i>
+    <h2>Travel Tips</h2>
+  </div>
+  <div class="ai-card">
+    <ul class="ai-tip-list">
+      <% itinerary.travelTips.forEach(tip => { %>
+        <li><i class="fa-solid fa-lightbulb" style="color: var(--gold)"></i><%= tip %></li>
+      <% }) %>
+    </ul>
+  </div>
+</section>
+
+<!-- Safety Tips -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-shield-halved"></i>
+    <h2>Safety Tips</h2>
+  </div>
+  <div class="ai-card">
+    <ul class="ai-tip-list">
+      <% itinerary.safetyTips.forEach(tip => { %>
+        <li><i class="fa-solid fa-triangle-exclamation" style="color: var(--brand)"></i><%= tip %></li>
+      <% }) %>
+    </ul>
+  </div>
+</section>
+
+<!-- Emergency Information -->
+<section class="ai-section reveal-on-scroll">
+  <div class="ai-section-heading">
+    <i class="fa-solid fa-phone"></i>
+    <h2>Emergency Information</h2>
+  </div>
+  <div class="ai-card">
+    <div class="ai-detail-row"><span class="ai-detail-label">Police</span><span><%= itinerary.emergencyInformation.police %></span></div>
+    <div class="ai-detail-row"><span class="ai-detail-label">Ambulance</span><span><%= itinerary.emergencyInformation.ambulance %></span></div>
+    <div class="ai-detail-row"><span class="ai-detail-label">Fire</span><span><%= itinerary.emergencyInformation.fire %></span></div>
+    <div class="ai-detail-row"><span class="ai-detail-label">Embassy</span><span><%= itinerary.emergencyInformation.embassy %></span></div>
+    <div class="mt-2">
+      <strong>Local Emergency Contacts:</strong>
+      <ul class="ai-tip-list mt-1">
+        <% itinerary.emergencyInformation.localEmergencyContacts.forEach(contact => { %>
+          <li><i class="fa-solid fa-phone"></i><%= contact %></li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom Actions -->
+<section class="ai-bottom-actions reveal-on-scroll no-print">
+  <a href="/planner/my-trips" class="btn btn-primary app-btn btn-lg">
+    <i class="fa-solid fa-arrow-left"></i> Back to My Trips
+  </a>
+</section>
