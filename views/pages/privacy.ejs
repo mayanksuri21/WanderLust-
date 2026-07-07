@@ -1,0 +1,102 @@
+<% layout("layouts/boilerplate") %>
+
+<section class="static-page">
+  <div class="static-header reveal-on-scroll">
+    <p class="eyebrow"><i class="fa-solid fa-shield-halved"></i> Your Privacy Matters</p>
+    <h1>Privacy Policy</h1>
+    <p class="static-lead">Last updated: January 2026</p>
+  </div>
+
+  <div class="static-content reveal-on-scroll">
+    <p>
+      WanderLust ("we", "our", or "us") is committed to protecting your privacy. This Privacy
+      Policy explains how we collect, use, and safeguard your personal information when you
+      use our platform.
+    </p>
+
+    <h2><i class="fa-solid fa-database"></i> Information We Collect</h2>
+    <div class="static-card">
+      <p>We collect the following types of information:</p>
+      <ul>
+        <li><strong>Account Information:</strong> Username, email address, and password (hashed) when you create an account.</li>
+        <li><strong>Listing Data:</strong> Property details, images, and location data when you create a listing as a host.</li>
+        <li><strong>Travel Preferences:</strong> Destination, dates, budget, travel style, and interests when you use the AI Planner.</li>
+        <li><strong>Saved Trips:</strong> Itineraries you choose to save to your account.</li>
+        <li><strong>Usage Data:</strong> Pages visited, search queries, and interactions with the platform.</li>
+      </ul>
+    </div>
+
+    <h2><i class="fa-solid fa-right-to-bracket"></i> Authentication</h2>
+    <div class="static-card">
+      <p>
+        WanderLust uses session-based authentication powered by Passport.js. When you log in:
+      </p>
+      <ul>
+        <li>Your credentials are verified against securely hashed passwords stored in our database.</li>
+        <li>A session cookie is created to maintain your authenticated state.</li>
+        <li>Sessions expire after 7 days of inactivity.</li>
+        <li>Session data is stored securely in MongoDB using connect-mongo.</li>
+        <li>Passwords are never stored in plain text.</li>
+      </ul>
+    </div>
+
+    <h2><i class="fa-solid fa-wand-magic-sparkles"></i> AI Itinerary Generation</h2>
+    <div class="static-card">
+      <p>When you use the AI Planner feature:</p>
+      <ul>
+        <li>Your form inputs (destination, dates, preferences) are sent to Google's Gemini AI service to generate your itinerary.</li>
+        <li>The generated itinerary is temporarily stored in your browser session for the duration of your visit.</li>
+        <li>If you choose to save a trip, the itinerary is stored in our database associated with your account.</li>
+        <li>We do not use your travel preferences or itineraries for advertising or third-party marketing.</li>
+        <li>AI-generated content may not always be accurate. Always verify critical information before traveling.</li>
+      </ul>
+    </div>
+
+    <h2><i class="fa-solid fa-server"></i> Data Storage</h2>
+    <div class="static-card">
+      <p>Your data is stored securely:</p>
+      <ul>
+        <li>All data is stored in MongoDB (Atlas cloud or local instance depending on configuration).</li>
+        <li>Images are hosted on Cloudinary with secure URLs.</li>
+        <li>Session data is encrypted using a secret key stored server-side.</li>
+        <li>We do not sell, trade, or rent your personal information to third parties.</li>
+        <li>Data is retained as long as your account is active or as needed to provide services.</li>
+      </ul>
+    </div>
+
+    <h2><i class="fa-solid fa-cookie-bite"></i> Cookies</h2>
+    <div class="static-card">
+      <p>WanderLust uses the following cookies:</p>
+      <ul>
+        <li><strong>Session Cookie:</strong> Essential for authentication. Contains an encrypted session identifier. Expires after 7 days.</li>
+        <li><strong>Flash Messages:</strong> Temporary cookies used to display success and error notifications. Automatically cleared after display.</li>
+      </ul>
+      <p>
+        We do not use tracking cookies, advertising cookies, or third-party analytics cookies.
+        You may disable cookies in your browser settings, but this will prevent you from logging
+        in or using platform features.
+      </p>
+    </div>
+
+    <h2><i class="fa-solid fa-user-shield"></i> Your Rights</h2>
+    <div class="static-card">
+      <p>You have the right to:</p>
+      <ul>
+        <li><strong>Access:</strong> View the personal data we hold about your account.</li>
+        <li><strong>Correction:</strong> Request corrections to inaccurate personal data.</li>
+        <li><strong>Deletion:</strong> Request deletion of your account and associated data.</li>
+        <li><strong>Portability:</strong> Request a copy of your saved trips and itineraries.</li>
+        <li><strong>Withdraw Consent:</strong> Stop using the platform at any time by logging out and deleting your account.</li>
+      </ul>
+      <p>
+        To exercise any of these rights, please reach out through our platform.
+      </p>
+    </div>
+
+    <div style="text-align: center; margin-top: 2.5rem;">
+      <a href="/listings" class="btn btn-outline-dark app-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Explore
+      </a>
+    </div>
+  </div>
+</section>

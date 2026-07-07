@@ -1,19 +1,38 @@
-<footer>
-    <div class="f-info">
-        <div class="footer-brand">
-            <span class="brand-icon"><i class="fa-regular fa-compass"></i></span>
-            <span>WanderLust</span>
-        </div>
-        <p class="footer-copy">Curated homes, city hideaways, and rare escapes for modern travelers.</p>
-        <div class="f-info-socials">
-            <a href="#" aria-label="Facebook"><i class="fa-brands fa-square-facebook"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        </div>
-        <div class="f-info-links">
-            <a href = "/privacy">Privacy</a>
-            <a href = "/terms">Terms</a>  
-        </div>
-        <div class = "f-info-brand"> &copy; Wanderlust Private Limited </div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-brand-col">
+      <a href="/listings" class="footer-brand" aria-label="WanderLust home">
+        <span class="brand-icon"><i class="fa-regular fa-compass"></i></span>
+        <span>WanderLust</span>
+      </a>
+      <p class="footer-tagline">
+        Discover premium stays and plan unforgettable trips with AI-powered itineraries.
+      </p>
     </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Explore</h4>
+      <ul class="footer-links">
+        <li><a href="/listings"><i class="fa-solid fa-compass me-1"></i> Explore Stays</a></li>
+        <li><a href="/listings/new"><i class="fa-solid fa-house-chimney me-1"></i> Host Your Stay</a></li>
+        <li><a href="/planner"><i class="fa-solid fa-wand-magic-sparkles me-1"></i> AI Planner</a></li>
+        <% if(typeof currUser !== 'undefined' && currUser) { %>
+          <li><a href="/planner/my-trips"><i class="fa-solid fa-suitcase-rolling me-1"></i> My Trips</a></li>
+        <% } %>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Company</h4>
+      <ul class="footer-links">
+        <li><a href="/about"><i class="fa-solid fa-circle-info me-1"></i> About</a></li>
+        <li><a href="/privacy"><i class="fa-solid fa-shield-halved me-1"></i> Privacy Policy</a></li>
+        <li><a href="/terms"><i class="fa-solid fa-file-contract me-1"></i> Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 WanderLust. All rights reserved.</p>
+  </div>
 </footer>

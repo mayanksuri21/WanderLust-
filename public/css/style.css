@@ -843,55 +843,104 @@ textarea.form-control {
     font-weight: 900;
 }
 
-/* Footer */
-.f-info {
-    width: min(1180px, calc(100% - 2rem));
-    margin: 2rem auto 1rem;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
-    gap: 1rem;
-    align-items: center;
-    padding: 1.25rem;
-    border: 1px solid var(--line);
-    border-radius: 1.5rem;
+/* ==========================================================================
+   Site Footer
+   ========================================================================== */
+.site-footer {
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
     background-color: var(--ink);
+    border-radius: 2rem 2rem 0 0;
     color: white;
 }
 
-.footer-copy,
-.f-info-brand {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.72);
-    font-weight: 700;
+.footer-inner {
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 2rem;
+    padding: 3rem 0 2rem;
 }
 
-.f-info-socials,
-.f-info-links {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.85rem;
-}
-
-.f-info-socials a,
-.f-info-links a {
-    color: white;
+.footer-brand-col .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: white !important;
+    font-weight: 900;
+    font-size: 1.2rem;
     text-decoration: none;
-    font-weight: 800;
+    margin-bottom: 1rem;
 }
 
-.f-info-socials i {
-    font-size: 1.25rem;
+.footer-tagline {
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 0;
+    max-width: 320px;
 }
 
-.f-info-brand {
-    grid-column: 1 / -1;
-    font-size: 0.9rem;
+.footer-heading {
+    font-size: 0.88rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+    transition: color 200ms ease;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.footer-links i {
+    font-size: 0.82rem;
+    width: 1rem;
+    text-align: center;
+}
+
+.footer-bottom {
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+    font-size: 0.85rem;
 }
 
 @media (max-width: 991px) {
     .site-main,
-    .nav-shell,
-    .f-info {
+    .nav-shell {
+        width: min(100% - 1rem, 760px);
+    }
+
+    .footer-inner,
+    .footer-bottom {
         width: min(100% - 1rem, 760px);
     }
 
@@ -938,22 +987,44 @@ textarea.form-control {
         min-height: 360px;
     }
 
-    .f-info {
-        grid-template-columns: 1fr;
-        text-align: center;
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
     }
 
-    .f-info-socials,
-    .f-info-links {
-        justify-content: center;
+    .footer-brand-col {
+        grid-column: 1 / -1;
     }
 }
 
 @media (max-width: 640px) {
     .site-main,
-    .nav-shell,
-    .f-info {
+    .nav-shell {
         width: min(100% - 0.75rem, 100%);
+    }
+
+    .footer-inner,
+    .footer-bottom {
+        width: min(100% - 0.75rem, 100%);
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 2rem 0 1.5rem;
+    }
+
+    .footer-brand-col {
+        grid-column: auto;
+    }
+
+    .footer-tagline {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .footer-links {
+        align-items: center;
     }
 
     .home-hero {
@@ -1013,6 +1084,147 @@ textarea.form-control {
 
     #map {
         height: 340px;
+    }
+}
+
+/* ==========================================================================
+   Static Pages (About, Privacy, Terms)
+   ========================================================================== */
+.static-page {
+    padding: 2rem 0 3rem;
+}
+
+.static-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.static-header .eyebrow {
+    color: var(--brand);
+}
+
+.static-header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    margin: 0.25rem 0 0.5rem;
+}
+
+.static-lead {
+    color: var(--muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    max-width: 600px;
+}
+
+.static-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.static-content h2 {
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin: 2rem 0 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.static-content h2 i {
+    color: var(--brand);
+}
+
+.static-content p,
+.static-content li {
+    color: var(--muted);
+    line-height: 1.75;
+    font-weight: 600;
+}
+
+.static-content ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.static-content ul li {
+    padding: 0.35rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.static-content ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brand);
+}
+
+.static-card {
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
+    background-color: var(--surface);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.25rem;
+}
+
+/* About page feature grid */
+.about-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin: 2rem 0;
+}
+
+.about-feature {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
+    background-color: var(--surface);
+    box-shadow: var(--shadow-sm);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.about-feature:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.about-feature i {
+    font-size: 2rem;
+    color: var(--brand);
+    margin-bottom: 0.75rem;
+}
+
+.about-feature h3 {
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 0.4rem;
+}
+
+.about-feature p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 0;
+}
+
+@media (max-width: 991px) {
+    .about-features {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .about-features {
+        grid-template-columns: 1fr;
     }
 }
 
