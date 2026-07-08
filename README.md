@@ -6,7 +6,7 @@ A modern full-stack travel accommodation platform inspired by Airbnb. WanderLust
 
 ## 🚀 Live Demo
 
-🌐 **Live Website:** https://wanderlust-nya1.onrender.com/listings
+🌐 **Live Website:** [https://wanderlust-nya1.onrender.com/listings](https://wanderlust-fhqc.onrender.com/listings)
 
 ---
 
