@@ -65,9 +65,6 @@ store.on("error", (err) => {
   console.log("ERROR IN MONGO SESSION STORE", err);
 });
 
-
-app.use(flash());
-
 // ================= SESSION OPTIONS =================
 const sessionOptions = {
   store: store,
@@ -78,7 +75,8 @@ const sessionOptions = {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    secure: false
+    secure: false,
+    sameSite: "lax"
   },
 };
 
@@ -88,18 +86,12 @@ app.use(flash());
 // ================= PASSPORT CONFIG (ONLY ONCE) =================
 app.use(passport.initialize());
 app.use(passport.session());
-app.use((req, res, next) => {
-  // Pass the flash messages or user info to locals so EJS templates can read them
-  res.locals.currUser = req.user;
-  next();
-});
 
 passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Your locals middleware follows right below
 app.use((req, res, next) => {
   res.locals.currUser = req.user || null;
   res.locals.success = req.flash("success") || "";
@@ -114,9 +106,9 @@ app.use((req, res, next) => {
 // ================= ROUTES =================
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
-app.use("/", userRouter);
 app.use("/planner", aiRouter);
 app.use("/", pagesRouter);
+app.use("/", userRouter);
 
 // ================= 404 =================
 app.use((req, res, next) => {
