@@ -12,7 +12,7 @@
         <a class="nav-link" href="/listings">Explore</a>
         <a class="nav-link" href="/listings/new">Host your stay</a>
         <a class="nav-link" href="/planner"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Planner</a>
-        <% if(currUser) { %>
+        <% if(locals.currUser) { %>
           <a class="nav-link" href="/planner/my-trips">My Trips</a>
         <% } %>
       </div>
@@ -24,11 +24,11 @@
         </form>
       </div>
       <div class="navbar-nav nav-account">
-        <% if(!currUser){ %>
+        <% if(!locals.currUser){ %>
           <a class="nav-link" href="/login">Log in</a>
           <a class="btn btn-dark nav-cta" href="/signup">Sign up</a>
           <% } %>
-            <% if(currUser) { %>
+            <% if(locals.currUser) { %>
               <span class="nav-user">Hi, <%= currUser.username %></span>
               <a class="btn btn-outline-dark nav-cta" href="/logout">Log out</a>
               <% } %>

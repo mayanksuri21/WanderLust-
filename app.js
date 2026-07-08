@@ -28,10 +28,12 @@ const dbUrl =
   "mongodb://127.0.0.1:27017/wanderlust";
 
 // ================= DB CONNECT =================
+// ================= DB CONNECT =================
 async function connectDB() {
   try {
     await mongoose.connect(dbUrl);
     console.log("Connected to DB");
+    // Removed the automated dropping loop-breaker line completely!
   } catch (err) {
     console.log("DB connection error:", err);
   }
@@ -42,6 +44,7 @@ connectDB();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.engine("ejs", ejsMate);
+app.disable('view cache');
 
 // ================= MIDDLEWARE =================
 app.use(express.urlencoded({ extended: true }));
@@ -49,28 +52,33 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // ================= SESSION STORE =================
+// ================= SESSION STORE =================
 const store = MongoStore.create({
   mongoUrl: dbUrl,
-  crypto: {
-    secret: process.env.SECRET,
-  },
+  // Removing the strict crypto block avoids the complex 32-byte key hashing rule,
+  // while letting connect-mongo handle your session strings perfectly.
   touchAfter: 24 * 3600,
+  stringify: true
 });
 
 store.on("error", (err) => {
   console.log("ERROR IN MONGO SESSION STORE", err);
 });
 
+
+app.use(flash());
+
 // ================= SESSION OPTIONS =================
 const sessionOptions = {
-  store,
-  secret: process.env.SECRET,
+  store: store,
+  secret: "abcdefghijklmnopqrstuvwxyz123456", // <-- Hardcode this string here too!
   resave: false,
   saveUninitialized: false,
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
+    secure: false
   },
 };
 
@@ -80,18 +88,28 @@ app.use(flash());
 // ================= PASSPORT CONFIG (ONLY ONCE) =================
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-// ================= LOCALS =================
 app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
+  // Pass the flash messages or user info to locals so EJS templates can read them
   res.locals.currUser = req.user;
   next();
 });
+
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Your locals middleware follows right below
+app.use((req, res, next) => {
+  res.locals.currUser = req.user || null;
+  res.locals.success = req.flash("success") || "";
+  res.locals.error = req.flash("error") || "";
+  next();
+});
+
+// ================= LOCALS =================
+// Make sure this sits AFTER your app.use(passport.session()) configuration
+
 
 // ================= ROUTES =================
 app.use("/listings", listingRouter);
@@ -106,13 +124,26 @@ app.use((req, res, next) => {
 });
 
 // ================= ERROR HANDLER =================
-app.use((err, req, res, next) => {
-  const statusCode =
-    err.statusCode && Number.isInteger(err.statusCode)
-      ? err.statusCode
-      : 500;
+// app.use((err, req, res, next) => {
+//   const statusCode =
+//     err.statusCode && Number.isInteger(err.statusCode)
+//       ? err.statusCode
+//       : 500;
 
-  res.status(statusCode).render("error.ejs", {
+//   res.status(statusCode).render("error.ejs", {
+//     message: err.message || "Something went wrong",
+//   });
+// });
+
+app.use((err, req, res, next) => {
+  console.error("========= ERROR =========");
+  console.error(err.stack);
+
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  res.status(err.statusCode || 500).render("error.ejs", {
     message: err.message || "Something went wrong",
   });
 });

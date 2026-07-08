@@ -59,7 +59,6 @@ module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
 };
-
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
 };
@@ -107,8 +106,13 @@ module.exports.renderEditForm = async (req, res) => {
     req.flash("error", "Listing you requested for does not exist");
     return res.redirect("/listings");
   }
-  let originalImageUrl = listing.image.url;
-  originalImageUrl.replace("/uploads", "/uploads/h_300,w_250");
+  
+  // Safe extraction with a fallback string so it never passes a raw un-parseable object
+  let originalImageUrl = (listing.image && listing.image.url) ? listing.image.url : "";
+  if (originalImageUrl) {
+    originalImageUrl = originalImageUrl.replace("/upload", "/upload/h_300,w_250");
+  }
+  
   res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
 

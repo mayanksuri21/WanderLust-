@@ -44,35 +44,12 @@ router
   );
 
 
-
-// SHOW  ROUTE
-router.get("/:id", wrapAsync(listingController.showListing)); 
-
 // EDIT ROUTE
 router.get(
   "/:id/edit",
   isLoggedIn,
   isOwner,
   wrapAsync(listingController.renderEditForm)
-);
-
-// UPDATE ROUTE
-
-router.put(
-  "/:id",  
-  isLoggedIn,
-  isOwner,
-  upload.single('listing[image]'),
-  validateListing,
-  wrapAsync(listingController.updateListing)
-);
-
-// DELETE ROUTE
-router.delete(
-  "/:id",
-  isLoggedIn,
-  isOwner,
-  wrapAsync(listingController.destroyListing)
 );
 
 module.exports = router;

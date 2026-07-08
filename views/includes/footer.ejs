@@ -16,7 +16,7 @@
         <li><a href="/listings"><i class="fa-solid fa-compass me-1"></i> Explore Stays</a></li>
         <li><a href="/listings/new"><i class="fa-solid fa-house-chimney me-1"></i> Host Your Stay</a></li>
         <li><a href="/planner"><i class="fa-solid fa-wand-magic-sparkles me-1"></i> AI Planner</a></li>
-        <% if(typeof currUser !== 'undefined' && currUser) { %>
+        <% if(typeof locals.currUser !== 'undefined' && locals.currUser) { %>
           <li><a href="/planner/my-trips"><i class="fa-solid fa-suitcase-rolling me-1"></i> My Trips</a></li>
         <% } %>
       </ul>

@@ -8,7 +8,7 @@ const reviewController = require("../controllers/review.js");
 
 // Review route 
 
-router.post("/", validateReview, isLoggedIn,wrapAsync(reviewController.createReview));
+router.post("/", validateReview, isLoggedIn, reviewController.createReview);
 
 
 
