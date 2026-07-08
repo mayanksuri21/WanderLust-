@@ -119,8 +119,9 @@ body.is-loading::before {
 }
 
 .nav-shell {
-    width: min(1240px, calc(100% - 2rem));
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
     padding: 0 !important;
     gap: 1rem;
 }
@@ -156,13 +157,17 @@ body.is-loading::before {
 }
 
 .navbar-collapse {
-    gap: 1rem;
+    flex-grow: 1;
 }
 
 .nav-primary,
 .nav-account {
     align-items: center;
     gap: 0.35rem;
+}
+
+.nav-primary {
+    flex-wrap: wrap;
 }
 
 .nav-primary .nav-link,
@@ -179,12 +184,15 @@ body.is-loading::before {
 }
 
 .nav-search-wrap {
-    flex: 1;
+    flex: 1 1 320px;
+    display: flex;
     justify-content: center;
+    min-width: 280px;
 }
 
 .nav-search {
-    width: min(470px, 100%);
+    width: 100%;
+    max-width: 640px;
     display: flex;
     align-items: center;
     gap: 0.65rem;
@@ -223,6 +231,29 @@ body.is-loading::before {
     color: var(--muted);
     font-weight: 800;
     white-space: nowrap;
+}
+
+@media (max-width: 991.98px) {
+    .nav-shell {
+        padding: 0 0.25rem !important;
+    }
+
+    .nav-search-wrap {
+        order: 3;
+        width: 100%;
+        min-width: 100%;
+        justify-content: stretch;
+    }
+
+    .nav-search {
+        max-width: 100%;
+    }
+
+    .nav-account {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-end;
+    }
 }
 
 /* Flash */
@@ -290,6 +321,20 @@ body.is-loading::before {
     display: flex;
     flex-wrap: wrap;
     gap: 0.8rem;
+}
+
+.hero-actions .btn-light {
+    color: var(--ink) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 16px 36px rgba(9, 7, 6, 0.18);
+}
+
+.hero-actions .btn-light:hover,
+.hero-actions .btn-light:focus {
+    background: #ffffff !important;
+    border-color: #ffffff !important;
+    color: var(--ink) !important;
 }
 
 .home-hero__panel {
@@ -1174,6 +1219,109 @@ textarea.form-control {
     margin-bottom: 1.25rem;
 }
 
+/* Features showcase */
+.features-showcase {
+    padding: 2.5rem 0 3.5rem;
+}
+
+.features-hero {
+    max-width: 780px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+}
+
+.features-hero h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(2.25rem, 5vw, 4.25rem);
+    line-height: 1;
+    font-weight: 900;
+}
+
+.features-hero p:not(.eyebrow) {
+    max-width: 680px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: 1.08rem;
+    line-height: 1.7;
+    font-weight: 650;
+}
+
+.features-grid {
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    display: flex;
+    gap: 1.25rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: 1px solid rgba(233, 225, 216, 0.92);
+    border-radius: 1.35rem;
+    background-color: var(--surface);
+    box-shadow: var(--shadow-sm);
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 56, 92, 0.22);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    border-radius: 1rem;
+    color: var(--brand);
+    background: rgba(255, 56, 92, 0.08);
+}
+
+.feature-icon i {
+    font-size: 1.55rem;
+}
+
+.feature-card h2 {
+    margin: 0 0 0.65rem;
+    font-size: 1.18rem;
+    font-weight: 900;
+}
+
+.feature-card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 650;
+}
+
+.features-cta {
+    max-width: 900px;
+    margin: 2.5rem auto 0;
+    padding: clamp(1.5rem, 4vw, 2.35rem);
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
+    background:
+        linear-gradient(135deg, rgba(255, 56, 92, 0.1), rgba(31, 122, 104, 0.08)),
+        var(--surface);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+
+.features-cta h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.55rem, 3vw, 2.3rem);
+    font-weight: 900;
+}
+
+.features-cta p {
+    max-width: 560px;
+    margin: 0 auto 1.35rem;
+    color: var(--muted);
+    font-weight: 650;
+}
+
 /* About page feature grid */
 .about-features {
     display: grid;
@@ -1225,6 +1373,14 @@ textarea.form-control {
 @media (max-width: 640px) {
     .about-features {
         grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+        display: block;
+    }
+
+    .feature-icon {
+        margin-bottom: 1rem;
     }
 }
 

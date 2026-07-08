@@ -1,37 +1,44 @@
 <nav class="navbar navbar-expand-lg sticky-top app-navbar">
-  <div class="container-fluid nav-shell">
-    <a class="navbar-brand brand-mark" href="/listings" aria-label="WanderLust home">
+  <div class="container-fluid px-4 px-lg-5 py-2 nav-shell">
+    <a class="navbar-brand brand-mark me-4" href="/listings" aria-label="WanderLust home">
       <span class="brand-icon"><i class="fa-regular fa-compass"></i></span>
       <span>WanderLust</span>
     </a>
+
     <button class="navbar-toggler nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav nav-primary">
-        <a class="nav-link" href="/listings">Explore</a>
-        <a class="nav-link" href="/listings/new">Host your stay</a>
-        <a class="nav-link" href="/planner"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Planner</a>
-        <% if(currUser) { %>
-          <a class="nav-link" href="/planner/my-trips">My Trips</a>
-        <% } %>
-      </div>
-      <div class="navbar-nav nav-search-wrap">
-        <form class="nav-search" role="search" id="listingSearchForm">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input class="form-control search-inp" id="listingSearchInput" type="search" placeholder="Search destinations" autocomplete="off" />
-          <button class="btn search-btn" type="submit">Search</button>
-        </form>
-      </div>
-      <div class="navbar-nav nav-account">
-        <% if(!currUser) { %>
-          <a class="nav-link" href="/login">Log in</a>
-          <a class="btn btn-dark nav-cta" href="/signup">Sign up</a>
+      <div class="d-flex flex-grow-1 align-items-center flex-wrap gap-3">
+        <div class="navbar-nav nav-primary me-3">
+          <a class="nav-link" href="/listings">Explore</a>
+          <a class="nav-link" href="/listings/new">Host your stay</a>
+          <a class="nav-link" href="/planner"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Planner</a>
+          <a class="nav-link" href="/features">Features</a>
+          <% if(currUser) { %>
+            <a class="nav-link" href="/planner/my-trips">My Trips</a>
           <% } %>
-            <% if(currUser) { %>
-              <span class="nav-user">Hi, <%= currUser.username %></span>
-              <a class="btn btn-outline-dark nav-cta" href="/logout">Log out</a>
-              <% } %>
+        </div>
+
+        <div class="nav-search-wrap flex-grow-1">
+          <form class="nav-search" role="search" id="listingSearchForm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input class="form-control search-inp" id="listingSearchInput" type="search" placeholder="Search destinations" autocomplete="off" />
+            <button class="btn search-btn" type="submit">Search</button>
+          </form>
+        </div>
+
+        <div class="navbar-nav nav-account ms-auto">
+          <% if(!currUser) { %>
+            <a class="nav-link" href="/login">Log in</a>
+            <a class="btn btn-dark nav-cta" href="/signup">Sign up</a>
+          <% } %>
+          <% if(currUser) { %>
+            <span class="nav-user">Hi, <%= currUser.username %></span>
+            <a class="btn btn-outline-dark nav-cta" href="/logout">Log out</a>
+          <% } %>
+        </div>
       </div>
     </div>
   </div>
