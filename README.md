@@ -299,7 +299,7 @@ http://localhost:8080
 
 ## Edit & Delete Listing
 
-![Edit & Delete](./Screenshots-Wanderlust/Edit%20%26%20delete%20Listing.png)
+![Edit & Delete](./Screenshots-Wanderlust/Edit%20%26%20delete%20listing.png)
 
 ## Features
 
