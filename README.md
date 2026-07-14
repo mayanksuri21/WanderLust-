@@ -281,25 +281,38 @@ http://localhost:8080
 
 ![Home](./Screenshots-Wanderlust/home.png)
 
-## Login & Signup
+## Login
 
-![LoginSignup](./Screenshots-Wanderlust/LoginSignUp.png)
+![Login](./Screenshots-Wanderlust/Login.png)
+
+## Sign-up
+
+![Sign-up](./Screenshots-Wanderlust/Sign-up.png)
 
 ## Create Listing
 
 ![CreateListing](./Screenshots-Wanderlust/Create%20Listing.png)
 
-## All Listings
+## Listing Details
 
-![AllListings](./Screenshots-Wanderlust/AllListings.png)
+![Listing Details](./Screenshots-Wanderlust/Listing%20Details.png)
 
-## Interactive Location Map
+## Edit & Delete Listing
 
-![Location](./Screenshots-Wanderlust/Location.png)
+![Edit & Delete](./Screenshots-Wanderlust/Edit%20delete%20listing.png)
 
-## Reviews System
+## Features
 
-![Reviews](./Screenshots-Wanderlust/Reviews.png)
+![Features](./Screenshots-Wanderlust/Features.png)
+
+## AI Planner
+
+![AI Planner](./Screenshots-Wanderlust/AI%20Planner.png)
+
+## Saved Trips
+
+![SavedTrips](./Screenshots-Wanderlust/Saved%20Trips.png)
+
 
 ## TripMind AI Planner
 
